@@ -31,7 +31,7 @@ shinyUI(bootstrapPage(
       h2("Control Center"),
       
       h3("Select your user group:"),
-      selectInput("dataset", "Select your user group", c("Foxfood", "Others"), selected = "Foxfood"),
+      selectInput("dataset", "Select your user group", c("Foxfood", "Others", "All"), selected = "Foxfood"),
       
       h3("Select your filter options:"),
       htmlOutput("os"),

@@ -68,8 +68,10 @@ shinyServer(function(input, output, session) {
   selectdata <- reactive({
     if (input$dataset == "Foxfood") {
       DT <- Foxfooders
-    } else {
+    } else if (input$dataset == "Others") {
       DT <- Production
+    } else {
+      DT <- bind_rows(Foxfooders, Production)
     }
     DT
   })
