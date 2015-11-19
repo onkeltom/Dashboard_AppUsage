@@ -12,7 +12,7 @@ appdata $start_timestamp <- NULL
 appdata <- filter(appdata, grepl("themeapp", app_url) == FALSE)
 appdata <- filter(appdata, grepl("app://addon", app_url) == FALSE)
 
-appdata <- filter(appdata, date > "2015-06-17")
+# appdata <- filter(appdata, date > "2015-06-17")
 appdata <- filter(appdata, date < Sys.Date()) 
 
 appdata $deviceID <- as.character(appdata$deviceID)
@@ -96,11 +96,11 @@ shinyServer(function(input, output, session) {
     }
     
     {
-    DT <- filter(DT, date >= input$startDate)
+    DT <- filter(DT, date >= input$daterange[1])
     }
     
     {
-    DT <- filter(DT, date <= input$stopDate)
+    DT <- filter(DT, date <= input$daterange[2])
     }
 
     DT
@@ -110,6 +110,7 @@ shinyServer(function(input, output, session) {
     DT = summarise(toBeDrawn(), total = sum(usage_time))
     print(DT$total)
   })
+  
   output$gaia <- renderPlot({
     DT <- toBeDrawn()
     DT <- group_by(DT, date)
