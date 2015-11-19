@@ -111,6 +111,11 @@ shinyServer(function(input, output, session) {
     print(DT$total)
   })
   
+  output$hover_result <- renderText({
+    print(paste0("Date: ", as.Date(floor(as.numeric(input$plot_hover$x)), origin = "1970-01-01"),
+                 ", Value: ", floor(as.numeric(input$plot_hover$y))))
+  })
+  
   output$gaia <- renderPlot({
     DT <- toBeDrawn()
     DT <- group_by(DT, date)
@@ -126,9 +131,12 @@ shinyServer(function(input, output, session) {
       DT = summarise(DT, total = n_distinct(deviceID))
     DT <- ungroup(DT)
     
-    g <- ggplot(data = DT, aes(x = as.Date(date), y = total)) + geom_line()
-    g <- g + theme_bw()
-    print(g)
+#     g <- ggplot(data = DT, aes(x = as.Date(date), y = total)) + geom_line()
+#     g <- g + theme_bw()
+#     print(g)
+#     plot(as.Date(DT$date), DT$total)
+#     lines(as.Date(DT$date), DT$total, type = "l")
+    qplot(as.Date(DT$date), DT$total, geom = "line")
   })
   
 })

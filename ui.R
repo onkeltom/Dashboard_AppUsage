@@ -34,8 +34,12 @@ shinyUI(bootstrapPage(
     ),
 
     mainPanel(
-
-      plotOutput("gaia"),
+      
+      p("Hover over chart to get info for individual points:"),
+      
+      textOutput("hover_result"),
+      
+      plotOutput("gaia", hover = "plot_hover"),
 
       h1("Application Usage"),
       
